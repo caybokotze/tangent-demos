@@ -1,0 +1,21 @@
+// The shape of the Scheduling solution: four layers and the direction dependencies may flow.
+// Anything not named on a `->` line is forbidden.
+
+project "Scheduling" {
+    root: "src/"
+
+    layer Api            = Scheduling.Api.**
+    layer Application    = Scheduling.Application.**
+    layer Domain         = Scheduling.Domain.**
+    layer Infrastructure = Scheduling.Infrastructure.**
+
+    Api            -> Application, Domain
+    Application    -> Domain
+    Infrastructure -> Application, Domain
+    Domain         -> nothing
+
+    // Every external package these layers may touch. Declaring an allow list switches the
+    // model to strict externals: a namespace that no layer declares and no glob below
+    // matches is then TNG0205. System.** is always allowed.
+    allow Microsoft.AspNetCore.**, Microsoft.Extensions.**, Microsoft.OpenApi.**
+}

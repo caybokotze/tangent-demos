@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <ProjectReference Include="../Scheduling.Application/Scheduling.Application.csproj" />
+    <ProjectReference Include="../Scheduling.Domain/Scheduling.Domain.csproj" />
+
+    <!--
+      The composition root in Program.cs is the only place that may name a concrete
+      repository. Program.cs has no namespace, so it belongs to no layer and TNG0202
+      does not apply to it - which is exactly the licence a composition root needs.
+    -->
+    <ProjectReference Include="../Scheduling.Infrastructure/Scheduling.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <!--
+    No OpenAPI. `AddOpenApi()` / `MapOpenApi()` live in Microsoft.AspNetCore.OpenApi, which is
+    NOT part of the net10.0 shared framework (verified: removing the package breaks the build),
+    and the 10.0.9 package drags in a Microsoft.OpenApi with a live advisory
+    (NU1903 / GHSA-v5pm-xwqc-g5wc) that no 2.x release clears. A demo whose point is a quiet
+    build does not ship a high-severity restore warning, so the API serves JSON and nothing else.
+  -->
+
+</Project>

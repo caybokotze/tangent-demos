@@ -1,0 +1,21 @@
+// Request handlers are the only Application types that orchestrate the Domain.
+// One handler per request, sealed, with every collaborator injected and parked in a
+// private readonly field.
+
+contract Handler {
+    match: class in Application where name ends with "Handler"
+
+    implements IRequestHandler<*, *>
+    require name ends with "Handler"
+    require lives in Application
+    sealed
+
+    ctor {
+        injects only IAppointmentRepository, IProviderRepository, ISlotFinderService, IClock, IUserContext
+        require each parameter assigned to private readonly field
+    }
+
+    methods where public { returns Task<*> }
+
+    forbid using Scheduling.Infrastructure.**
+}

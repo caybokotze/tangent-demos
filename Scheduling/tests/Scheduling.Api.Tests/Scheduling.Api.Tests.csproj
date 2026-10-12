@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!--
+      The namespace matters to Tangent. `Scheduling.Api.Tests` would match the
+      `layer Api = Scheduling.Api.**` glob in project.tan, and the tests - which compose the
+      whole stack, Infrastructure included - would report layer violations of their own.
+      Test code is not part of the architecture, so it lives outside every layer glob.
+    -->
+    <RootNamespace>Scheduling.Tests</RootNamespace>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.10" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../src/Scheduling.Api/Scheduling.Api.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,38 @@
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.{json,yml,yaml,csproj,props,config,tan,slnx}]
+indent_size = 2
+
+[*.cs]
+csharp_style_namespace_declarations = file_scoped:suggestion
+
+# ---------------------------------------------------------------------------
+# Tangent severity mapping.
+#
+# Every TNG diagnostic is a warning by default (see docs/diagnostics.md), so a
+# plain `dotnet build` reports the six deliberate violations and still succeeds.
+# Promote the ones you have already paid off to `error` and the build enforces
+# them from then on; CI can do the same for everything at once with
+# `dotnet build -warnaserror:TNG*`.
+#
+# TNG0202 (layer dependency) is the usual first one to promote. It is left at
+# `warning` here on purpose so this demo's `dotnet build` stays green:
+#
+# dotnet_diagnostic.TNG0202.severity = error
+# ---------------------------------------------------------------------------
+dotnet_diagnostic.TNG0202.severity = warning
+
+# Structural rules: noisy while adopting, so keep them visible but not fatal.
+dotnet_diagnostic.TNG0101.severity = warning
+dotnet_diagnostic.TNG0106.severity = warning
+dotnet_diagnostic.TNG0107.severity = warning
+dotnet_diagnostic.TNG0201.severity = warning
+dotnet_diagnostic.TNG0301.severity = warning

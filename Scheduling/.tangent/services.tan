@@ -1,0 +1,27 @@
+// Domain services are sealed, stateless collaborators behind an interface.
+
+contract DomainService {
+    match: class in Scheduling.Domain.Services.**
+
+    implements I{Name}
+    sealed
+    stateless
+    fields { require private; require readonly; forbid static }
+
+    forbid using Scheduling.Application.**, Scheduling.Infrastructure.**
+}
+
+// View models are immutable transport records that carry no domain types across the wire:
+// the Application layer may depend on the Domain, but its wire format may not.
+contract ViewModel {
+    match: record in Scheduling.Application.ViewModels.**
+
+    properties {
+        require public
+        require get
+        forbid public set
+    }
+    fields { require private; require readonly }
+
+    forbid using Scheduling.Domain.**
+}

@@ -1,0 +1,34 @@
+<Project>
+
+  <!--
+    Deliberately does NOT import the repository-root Directory.Build.props: this folder is a
+    stand-alone solution, the way a Tangent user's repository looks.
+
+    Everything Tangent needs is wired in here, once, for every project in the solution:
+      * Tangent.Attributes  - [Tangent] / [TangentIgnore], stripped from the output assembly.
+      * Tangent.Analyzers   - the Roslyn analyzer, the code fixes and the Contracts source
+                              generator. Its build/Tangent.Analyzers.props turns `.tangent/**/*.tan`
+                              into AdditionalFiles for the compiler by finding the nearest
+                              ancestor folder that contains `.tangent/`.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+
+    <!-- The repository root's central package management must not leak in. -->
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+    <ImportDirectoryPackagesProps>false</ImportDirectoryPackagesProps>
+
+    <IsPackable>false</IsPackable>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Tangent.Attributes" Version="0.1.0-dev" />
+    <PackageReference Include="Tangent.Analyzers" Version="0.1.0-dev" PrivateAssets="all" />
+  </ItemGroup>
+
+</Project>

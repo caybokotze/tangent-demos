@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "tangent.cli": {
+      "version": "0.1.0-dev",
+      "commands": [
+        "tangent"
+      ],
+      "rollForward": false
+    }
+  }
+}

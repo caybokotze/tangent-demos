@@ -1,0 +1,9 @@
+// Explicit bindings and the escape hatches. Every ignore carries a reason and is
+// surfaced by `dotnet tangent check --show-ignored`.
+
+// A liveness probe has no response body worth documenting, so it keeps the Controller
+// contract minus the one rule that does not apply to it.
+bind Scheduling.Api.Controllers.HealthController to Controller except [ProducesResponseType]
+
+// An append-only audit row is materialised field by field by the persistence layer.
+ignore Scheduling.Domain.Appointments.AppointmentAuditEntry from Entity reason "append-only audit row, written field by field by the repository"

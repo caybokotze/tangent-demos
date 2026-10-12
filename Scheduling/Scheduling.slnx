@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Scheduling.Api/Scheduling.Api.csproj" />
+    <Project Path="src/Scheduling.Application/Scheduling.Application.csproj" />
+    <Project Path="src/Scheduling.Domain/Scheduling.Domain.csproj" />
+    <Project Path="src/Scheduling.Infrastructure/Scheduling.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Scheduling.Api.Tests/Scheduling.Api.Tests.csproj" />
+  </Folder>
+</Solution>

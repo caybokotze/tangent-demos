@@ -1,0 +1,17 @@
+// Repositories are the only types that own storage, and the interface a repository
+// implements belongs to the Domain that consumes it, never to Infrastructure.
+
+contract Repository {
+    match: class in Infrastructure where name ends with "Repository"
+
+    implements only I{Name}
+    interface I{Name} lives in Domain
+    sealed
+
+    // A repository owns one aggregate's storage, so it never reaches for another repository.
+    forbid using contract Repository
+
+    methods where public { returns Task<*> }
+
+    forbid using Scheduling.Api.**
+}

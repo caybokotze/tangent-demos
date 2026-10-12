@@ -1,0 +1,20 @@
+// Entities are created through factories and changed through behaviour, never through
+// property setters, and they know nothing about persistence or serialisation.
+
+contract Entity {
+    match: class in Domain where inherits Entity<*> | AggregateRoot<*>
+
+    properties {
+        forbid public set            // init / private set only
+    }
+    forbid public fields
+    ctor { forbid public }           // factories only
+
+    forbid using System.Data.**, System.Text.Json.**, Microsoft.**
+}
+
+contract AggregateRoot extends Entity {
+    match: class in Domain where inherits AggregateRoot<*>
+    // May only add rules; it cannot loosen Entity.
+    methods where public { forbid returns void }   // commands return a result
+}
